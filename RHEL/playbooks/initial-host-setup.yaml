@@ -1,0 +1,58 @@
+---
+- hosts: all
+  vars_files: 
+  - env_variables
+
+  tasks:
+  - name: Update hosts file in /etc/hosts
+    copy: 
+      src: /etc/hosts
+      dest: /etc/hosts 
+        
+  - name: Set variable for IP address in host file and new host name
+    shell: ip4=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1); export newhostname=$(grep $ip4 /etc/hosts | awk '{print $3}'); hostnamectl set-hostname $newhostname
+     
+  - name: Enable network connection on reboot
+    shell: nmcli con mod eth0 connection.autoconnect yes
+    
+  - name: Disabling Swap on all nodes
+    shell: swapoff -a
+
+  - name: Commenting Swap entries in /etc/fstab
+    replace:
+     path: /etc/fstab
+     regexp: '(.*swap*)'
+     replace: '#\1'
+     
+  - name: set SELinux to permissive
+    selinux:
+      state: disabled
+
+  - name: Rebooting hosts 
+    reboot:
+      msg: "Reboot initiated"
+      connect_timeout: 5
+      reboot_timeout: 600
+      pre_reboot_delay: 0
+      post_reboot_delay: 30
+      test_command: whoami
+
+  - name: Updating subscription manager to register hosts
+    redhat_subscription:
+      state: present
+      org_id: "{{ org_num|quote }}" 
+      activationkey: "{{ act_key|quote }}"
+
+  - name: Updating repos to enable server rpms
+    rhsm_repository:
+      name: rhel-7-server-rpms
+
+  - name: Updating repos to enable extras rpms
+    rhsm_repository:
+      name: rhel-7-server-extras-rpms
+
+  - name: Updating repos to enable optional rpms
+    rhsm_repository:
+      name: rhel-7-server-optional-rpms
+
+  
