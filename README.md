@@ -24,3 +24,5 @@ Instructions
       - K8 master host IP
       - Org_num (RedHat org ID for licenses)
       - Act_key (activation key name in subscriptions)
+      
+Ansible Tower Bwrap must be disabled
