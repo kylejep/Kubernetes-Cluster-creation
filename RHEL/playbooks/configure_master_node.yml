@@ -13,15 +13,15 @@
 
   - name: Creating .kube directory
     file: 
-      path: $HOME/.kube
+      path: /home/lab/.kube
       state: directory
 
   - name: Copying kubeconfig files 
     copy:
       src: /etc/kubernetes/admin.conf
-      dest: $HOME/.kube/config
-      owner: $(id -u)
-      group: $(id -g)
+      dest: /home/lab/.kube/config
+      owner: lab
+      group: lab
       remote_src: yes
     become: yes
  
