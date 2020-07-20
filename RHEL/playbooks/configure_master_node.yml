@@ -10,6 +10,7 @@
   - name: Initializing Kubernetes cluster
     shell: kubeadm init --apiserver-advertise-address {{ad_addr}} --pod-network-cidr={{cidr_v}}> kubeadm_logs
     register: output
+    become: true
 
   - name: Creating .kube directory
     file: 
