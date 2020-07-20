@@ -4,11 +4,11 @@ ad_addr: 192.168.1.128
 cidr_v: 172.16.0.0/16
 
 #list the RedHat organization number and activation key to enable repos
-org_num: 13136728
-act_key: RHEL_7
+org_num: 
+act_key: 
 
 #specify username of ssh key
-pub_key: kyle
+pub_key: 
 
 ###################################################################################
 # Dont Edit these below values, these are mandatory to configure kubernetes cluster
