@@ -15,19 +15,6 @@
   - name: Enable network connection on reboot
     shell: nmcli con mod eth0 connection.autoconnect yes
     
-  - name: Disabling Swap on all nodes
-    shell: swapoff -a
-
-  - name: Commenting Swap entries in /etc/fstab
-    replace:
-     path: /etc/fstab
-     regexp: '(.*swap*)'
-     replace: '#\1'
-     
-  - name: set SELinux to permissive
-    selinux:
-      state: disabled
-
   - name: Rebooting hosts 
     reboot:
       msg: "Reboot initiated"
@@ -60,5 +47,24 @@
        name: '*'
        state: latest
 
-    
-  
+  - name: Disabling Swap on all nodes
+    shell: swapoff -a
+
+  - name: Commenting Swap entries in /etc/fstab
+    replace:
+     path: /etc/fstab
+     regexp: '(.*swap*)'
+     replace: '#\1'
+     
+  - name: set SELinux to permissive
+    selinux:
+      state: disabled 
+      
+  - name: Rebooting hosts 
+    reboot:
+      msg: "Reboot initiated"
+      connect_timeout: 5
+      reboot_timeout: 600
+      pre_reboot_delay: 0
+      post_reboot_delay: 30
+      test_command: whoami
