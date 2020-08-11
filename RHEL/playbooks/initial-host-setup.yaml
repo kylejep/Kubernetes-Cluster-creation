@@ -55,4 +55,10 @@
     rhsm_repository:
       name: rhel-7-server-optional-rpms
 
+  - name: upgrade all packages
+    yum:
+       name: '*'
+       state: latest
+
+    
   
