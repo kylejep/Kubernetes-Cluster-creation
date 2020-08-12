@@ -1,5 +1,6 @@
 ---
 - hosts: kubernetes_master_nodes
+  become: yes
   vars_files:
   - env_variables
   tasks:
