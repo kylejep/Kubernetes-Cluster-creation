@@ -1,9 +1,0 @@
-[kubernetes_master_nodes]
-k8master
-
-[kubernetes_worker_nodes]
-k8worker1
-k8worker2
-
-
-
