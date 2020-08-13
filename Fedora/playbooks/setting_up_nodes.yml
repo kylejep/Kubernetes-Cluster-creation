@@ -46,6 +46,3 @@
   - name: Enabling Bridge Firewall Rule
     shell: "echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables"
 
-  - name: enable backward compatibilitiy for Cgroups for Fedora 31 and higher
-    shell: grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
-
