@@ -1,0 +1,4 @@
+---
+- import_playbook: playbooks/setup_kubectl.yml
+- import_playbook: playbooks/copy_kubeconfig.yml
+

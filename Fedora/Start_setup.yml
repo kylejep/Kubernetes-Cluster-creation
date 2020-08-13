@@ -1,0 +1,4 @@
+---
+
+- import_playbook: initial-host-setup.yaml
+- import_playbook: local-setup-for-kubespray.yaml
