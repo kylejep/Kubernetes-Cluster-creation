@@ -6,7 +6,7 @@
   
   tasks:
   - name: copy hosts file 
-    copy: src=~/K8s/Kubernetes-CLuster-creation/Fedora/playbooks/k8hosts dest=/etc/hosts
+    copy: src=~/K8s/Kubernetes-CLuster-creation/Fedora/playbooks/hostnames dest=/etc/hosts
     delegate_to: localhost
 
   - name: Update hosts file in /etc/hosts
