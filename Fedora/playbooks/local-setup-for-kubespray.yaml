@@ -7,6 +7,9 @@
   become: yes
  
   tasks:
+ 
+  - name: clone kubespray
+    shell: git clone https://github.com/kubernetes-sigs/kubespray
   - name: Download requirements for kubespray
     shell: sudo pip3 install -r requirements.txt
   - name: Copy the inventory sample file 
