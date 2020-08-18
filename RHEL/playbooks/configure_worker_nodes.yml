@@ -12,7 +12,7 @@
 - hosts: kubernetes_worker_nodes
   tasks:
   - name:
-    copy: src=/tmp/joincommand.sh/k8master/joincommand.sh dest=$HOME/joincommand.sh
+    copy: src=/tmp/joincommand.sh/k8smaster/joincommand.sh dest=$HOME/joincommand.sh
   - name: make it execute
     shell: chmod +x $HOME/joincommand.sh
 
