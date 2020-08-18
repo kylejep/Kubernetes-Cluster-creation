@@ -14,7 +14,7 @@
   - name: Workers copy Join token and command script from Ansible controller
     copy: src=/tmp/joincommand.sh/k8smaster/joincommand.sh dest=$HOME/joincommand.sh
  
- - name: Make the script executable
+  - name: Make the script executable
     shell: chmod +x $HOME/joincommand.sh
 
   - name: Joining worker nodes with kubernetes master
