@@ -1,0 +1,6 @@
+192.168.1.2 k8smaster.localhost.localdomain k8smaster
+192.168.1.3 k8sworker1.localhost.localdomain k8sworker1
+192.168.1.4 k8sworker2.localhost.localdomain k8sworker2
+
+
+
