@@ -17,7 +17,7 @@ https://access.redhat.com/downloads
 Download  - Red Hat Enterprise Linux 7.8 Binary DVD - *should be the one listed as 4.24GB*
 Ex: RHEL 7.8 Binary DVD  https://access.redhat.com/downloads/content/69/ver=/rhel---7/7.8/x86_64/product-software
 
-![](./images/2020-09-08-15-00-06.png)
+![](2020-09-08-15-00-06.png)
 ## Install HyperV
 ## Navigate to windows features and enable Hyper-V
 ![](2020-09-08-15-02-06.png)
