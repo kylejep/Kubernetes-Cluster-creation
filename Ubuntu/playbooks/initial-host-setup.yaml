@@ -24,9 +24,11 @@
      
   - name: Setting modprobe br_netfilter
     shell: modprobe br_netfilter
+    become: true
   
   - name: Setting modprobe overlay
-    shell: modprobe overlay  
+    shell: modprobe overlay 
+    become: true 
     
   - name: Set up required sysctl params, these persist across reboots
     file:
