@@ -1,0 +1,6 @@
+[kubernetes_master_nodes]
+k8smaster
+ 
+[kubernetes_worker_nodes]
+k8sworker1
+K8sworker2
