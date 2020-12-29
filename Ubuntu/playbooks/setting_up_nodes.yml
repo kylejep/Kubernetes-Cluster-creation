@@ -55,6 +55,17 @@
      state: present
     with_items: "{{ packages }}"
 
+  - name: Set up KUBELET_EXTRA_ARGS
+    file:
+     path: /etc/default/kubelet
+     state: touch
+
+  - name: Add content to extra args
+    blockinfile:
+     path: /etc/default/kubelet
+     block: | 
+         KUBELET_EXTRA_ARGS=--cgroup-driver=systemd --container-runtime=remote --container-runtime-endpoint="unix:///var/run/crio/crio.sock"
+
   - name: Reload Daemons 
     systemd:
       daemon_reload: yes
