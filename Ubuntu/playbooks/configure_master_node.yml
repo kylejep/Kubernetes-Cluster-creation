@@ -5,8 +5,23 @@
   - env_variables 
   tasks:
 
+  - name: Set up KUBELET_EXTRA_ARGS
+    file:
+     path: /etc/default/kubelet
+     state: touch
+
+  - name: Add content to extra args
+    blockinfile:
+     path: /etc/default/kubelet
+     block: | 
+         KUBELET_EXTRA_ARGS=--cgroup-driver=systemd --container-runtime=remote --container-runtime-endpoint="unix:///var/run/crio/crio.sock"
+
+  - name: Reload Daemons 
+    systemd:
+      daemon_reload: yes
+
   - name: Initializing Kubernetes cluster
-    shell: kubeadm init --apiserver-advertise-address {{ad_addr}} --pod-network-cidr={{cidr_v}} --cri-socket=/var/run/crio/crio.sock > kubeadm_logs
+    shell: kubeadm init --apiserver-advertise-address {{ad_addr}} --pod-network-cidr={{cidr_v}} > kubeadm_logs
     register: output
     become: true
 
