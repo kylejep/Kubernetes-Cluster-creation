@@ -22,7 +22,7 @@
       state: present
       filename: 'kubernetes'
 
-  - name: add CRI-O apt-key
+  - name: add libcontainers apt-key
     apt_key:
       url: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/Release.key
       state: present
@@ -32,17 +32,17 @@
       url: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.20/xUbuntu_20.04/Release.key
       state: present   
 
-  - name: add cri-o apt repository
+  - name: add libcontainers apt repository
     apt_repository:
       repo: deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/ /
       state: present
-      filename: 'kubernetes'
+      filename: 'libcontainters'
 
   - name: add cri-o apt repository
     apt_repository:
-      repo: deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.20/xUbuntu_20.04/ / kubernetes-xenial main
+      repo: deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.20/xUbuntu_20.04/ / 
       state: present
-      filename: 'kubernetes'
+      filename: 'crio'
 
   - name: upgrade all packages
     apt:
