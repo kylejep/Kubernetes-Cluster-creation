@@ -22,14 +22,6 @@
      regexp: '(.*swap*)'
      replace: '#\1'
      
-  - name: Setting modprobe br_netfilter
-    shell: modprobe br_netfilter
-    become: true
-  
-  - name: Setting modprobe overlay
-    shell: modprobe overlay 
-    become: true 
-    
   - name: Set up required sysctl params, these persist across reboots
     file:
      path: /etc/sysctl.d/99-kubernetes-cri.conf
@@ -55,6 +47,14 @@
          net.bridge.bridge-nf-call-ip6tables = 1
          net.bridge.bridge-nf-call-iptables = 1
 
+  - name: Setting modprobe br_netfilter
+    shell: modprobe br_netfilter
+    become: true
+  
+  - name: Setting modprobe overlay
+    shell: modprobe overlay 
+    become: true 
+    
   - name: Set up required sysctl params, these persist across reboots
     shell: sysctl --system
 
