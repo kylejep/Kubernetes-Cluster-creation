@@ -4,11 +4,9 @@
   vars_files:
   - env_variables 
   tasks:
-  - name: Pulling images required for setting up a Kubernetes cluster
-    shell: kubeadm config images pull
 
   - name: Initializing Kubernetes cluster
-    shell: kubeadm init --apiserver-advertise-address {{ad_addr}} --pod-network-cidr={{cidr_v}}> kubeadm_logs
+    shell: kubeadm init --apiserver-advertise-address {{ad_addr}} --pod-network-cidr={{cidr_v}} --cri-socket=/var/run/crio/crio.sock > kubeadm_logs
     register: output
     become: true
 
