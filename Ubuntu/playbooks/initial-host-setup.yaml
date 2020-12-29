@@ -32,7 +32,7 @@
 
   - name: Set up required sysctl params, these persist across reboots
     blockinfile:
-     path: /etc/yum.repos.d/kubernetes.repo
+     path: /etc/sysctl.d/99-kubernetes-cri.conf
      block: | 
         net.bridge.bridge-nf-call-iptables  = 1
         net.ipv4.ip_forward                 = 1
