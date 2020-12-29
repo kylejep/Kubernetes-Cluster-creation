@@ -5,6 +5,7 @@
   - env_variables 
   tasks:
 
+
   - name: install APT Transport HTTPS
     apt:
       name: apt-transport-https
@@ -21,16 +22,30 @@
       state: present
       filename: 'kubernetes'
 
-  - name: Adding repository details in Kubernetes repo file.
-    blockinfile:
-     path: /etc/apt/sources.list.d/kubernetes.list
-     block: deb https://apt.kubernetes.io/ kubernetes-xenial main
+  - name: add CRI-O apt-key
+    apt_key:
+      url: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_20.04/Release.key
+      state: present
 
+  - name: add CRI-O apt-key
+    apt_key:
+      url: https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.20/xUbuntu_20.04/Release.key
+      state: present   
+
+  - name: upgrade all packages
+    apt:
+       name: '*'
+       state: latest 
+  
   - name: Installing required packages
     apt:
      name: "{{ packages }}"
      state: present
     with_items: "{{ packages }}"
+
+  - name: Reload Daemons 
+    systemd:
+      daemon_reload: yes
 
   - name: Starting and Enabling the required services
     service:

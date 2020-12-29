@@ -13,11 +13,6 @@
   - name: Set variable for IP address in host file and new host name
     shell: ip4=$(/sbin/ip -o -4 addr list enp0s3 | awk '{print $4}' | cut -d/ -f1); export newhostname=$(grep $ip4 /etc/hosts | awk '{print $3}'); hostnamectl set-hostname $newhostname
        
-  - name: upgrade all packages
-    apt:
-       name: '*'
-       state: latest
-
   - name: Disabling Swap on all nodes
     shell: swapoff -a
 
@@ -27,7 +22,25 @@
      regexp: '(.*swap*)'
      replace: '#\1'
      
-      
+  - name: Setting up prerequisites for CRI-O
+    shell: modprobe overlay && modprobe br_netfilter
+
+  - name: Set up required sysctl params, these persist across reboots
+    file:
+     path: /etc/sysctl.d/99-kubernetes-cri.conf
+     state: touch
+
+  - name: Set up required sysctl params, these persist across reboots
+    blockinfile:
+     path: /etc/yum.repos.d/kubernetes.repo
+     block: | 
+        net.bridge.bridge-nf-call-iptables  = 1
+        net.ipv4.ip_forward                 = 1
+        net.bridge.bridge-nf-call-ip6tables = 1
+
+  - name: Set up required sysctl params, these persist across reboots
+    shell: sysctl --system
+
   - name: Rebooting hosts 
     reboot:
       msg: "Reboot initiated"
