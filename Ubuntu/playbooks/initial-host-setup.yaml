@@ -22,18 +22,32 @@
      regexp: '(.*swap*)'
      replace: '#\1'
      
-  - name: Setting modprobe br_netfilter
-    shell: sudo modprobe br_netfilter
-      
-  - name: Setting modprobe overlay
-    shell: sudo modprobe overlay 
+  - name: Create new file in boot config for kernel modules
+    file:
+     path: /etc/modules-load.d/crio.conf
+     state: touch
 
-  - name: Set up required sysctl params, these persist across reboots
+  - name: Add br_netfilter and overlay kernel modules to bootup config
+    blockinfile:
+     path: /etc/modules-load.d/crio.conf
+     block: | 
+        overlay
+        br_netfilter
+
+  - name: Loading kernel module br_netfilter
+    shell: modprobe br_netfilter
+    become: yes
+      
+  - name: Loading kernel module overlay
+    shell: modprobe overlay
+    become: yes 
+
+  - name: Add config file to set kernel module parameters
     file:
      path: /etc/sysctl.d/99-kubernetes-cri.conf
      state: touch
 
-  - name: Set up required sysctl params, these persist across reboots
+  - name: Set up required sysctl params
     blockinfile:
      path: /etc/sysctl.d/99-kubernetes-cri.conf
      block: | 
