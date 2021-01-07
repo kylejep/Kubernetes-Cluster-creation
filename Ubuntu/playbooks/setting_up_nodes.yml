@@ -70,11 +70,4 @@
     systemd:
       daemon_reload: yes
 
-  - name: Starting and Enabling the required services
-    service:
-     name: "{{ item }}"
-     state: started
-     enabled: yes
-    with_items: "{{ services }}"
-
 
