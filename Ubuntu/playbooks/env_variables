@@ -12,7 +12,6 @@ packages:
 - kubectl
 
 services:
-- kubelet
 - cri-o
 
 ports:
